@@ -1,39 +1,18 @@
 import { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // import styles
+import dynamic from 'next/dynamic';
+
+const QuillNoSSRWrapper = dynamic(
+  () => import('react-quill'), 
+  { ssr: false }
+);
 
 export default function WriterInterface() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [content, setContent] = useState('');
-
-  const handleAIButtonClick = () => {
-    // Handle AI feedback logic here
-  };
+  const [value, setValue] = useState('');
 
   return (
-    <div className="container mx-auto py-10 px-5 bg-white rounded shadow-lg">
-      <input 
-        className="mb-4 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
-        type="text" 
-        placeholder="Title" 
-        value={title} 
-        onChange={e => setTitle(e.target.value)} 
-      />
-      <input 
-        className="mb-4 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" 
-        type="text" 
-        placeholder="Description" 
-        value={description} 
-        onChange={e => setDescription(e.target.value)} 
-      />
-      <ReactQuill value={content} onChange={setContent} />
-      <button 
-        className="btn btn-primary mt-4" 
-        onClick={handleAIButtonClick}
-      >
-        Activate AI
-      </button>
+    <div className="py-5">
+      <h2 className="text-2xl font-bold mb-5">Compose your masterpiece</h2>
+      <QuillNoSSRWrapper value={value} onChange={setValue} />
     </div>
   );
 }
