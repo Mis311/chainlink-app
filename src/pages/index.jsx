@@ -60,11 +60,11 @@ function Home() {
             <h1
               className={`${styles["inspiration-gradient"]} text-4xl font-bold mb-4`}
             >
-              "Inspiration"
+              &quot;Inspiration&quot;
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">
-                Create on theme of day
+                Create on Today&apos;s theme
               </button>
             </Link>
           </div>
