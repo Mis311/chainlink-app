@@ -1,7 +1,13 @@
 import "react-quill/dist/quill.snow.css";
 import "./globals.css";
+import RootLayout from "./layout";
+
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <RootLayout>
+      <Component {...pageProps} />
+    </RootLayout>
+  );
 }
 
 export default MyApp;
