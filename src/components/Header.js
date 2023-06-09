@@ -36,6 +36,14 @@ export default function Header () {
       alert('Please install MetaMask!');
     }
   };
+
+  const disconnect = () => {
+    setAccount(null);
+  };
+  
+  
+  <WalletButton account={account} onClick={connectWallet} />
+  
   return(
     <nav className="bg-white p-4 sticky top-0 z-50 h-24">
       <header className="flex items-center justify-between">
