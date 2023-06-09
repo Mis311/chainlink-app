@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import "daisyui/dist/full.css";
-
+import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#F3F4F6]">
