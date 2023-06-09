@@ -64,13 +64,13 @@ function Home() {
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">
-                Create on today&quot;s theme
+                Create on today&ldquo;s theme
               </button>
             </Link>
           </div>
         )}
       </section>
-
+<div className="mt-28">
       <section
         className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10 "
         style={{ backgroundImage: "url('/background1.png')" }}
@@ -126,6 +126,7 @@ function Home() {
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 }
