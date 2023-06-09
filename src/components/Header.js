@@ -51,9 +51,8 @@ export default function Header () {
           <div className="font-bold text-2xl cursor-pointer">ArtiFusion</div>
         </Link>
         <div className="flex space-x-4">
-          <a className="text-blue-500">About Us</a>
-          <a className="text-blue-500">Features</a>
-          <a className="text-blue-500">Pricing</a>
+          <a className="text-blue-500" href="#our-story">About Us</a>
+          <a className="text-blue-500">Demo</a>
           <a className="text-blue-500">Contact</a>
           <WalletButton account={account} onClick={connectWallet}/>
         </div>
