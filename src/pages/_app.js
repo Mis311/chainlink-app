@@ -1,5 +1,5 @@
 import "react-quill/dist/quill.snow.css";
-import "../src/pages/globals.css";
+import "./globals.css";
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
