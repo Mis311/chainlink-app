@@ -13,18 +13,26 @@ function Home() {
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
-      setState({ ...state, showFirstImage: false, showSecondImage: true });
+      setState((prevState) => ({
+        ...prevState,
+        showFirstImage: false,
+        showSecondImage: true,
+      }));
     }, 5000);
 
     const timer2 = setTimeout(() => {
-      setState({ ...state, showSecondImage: false, showText: true });
+      setState((prevState) => ({
+        ...prevState,
+        showSecondImage: false,
+        showText: true,
+      }));
     }, 10000);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [setState]);
+  }, []);
 
   return (
     <div>
