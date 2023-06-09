@@ -1,0 +1,49 @@
+
+.animate-slide {
+    animation: slide-up 10s ease-in-out infinite;
+  }
+  
+  @keyframes slide-up {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #000000;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .inspiration-gradient {
+    background: linear-gradient(-45deg, red, yellow, blue, green, purple);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
