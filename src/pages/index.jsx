@@ -24,7 +24,7 @@ function Home() {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [state, startTime]);
+  }, [setState]);
 
   return (
     <div>

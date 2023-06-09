@@ -30,7 +30,7 @@ export default function WriterInterface() {
         setReaction("🤔 Thinking in progress...");
       }
     }
-  }, [value]);
+  }, [value, startTime]);
 
   // Call this function to get AI's response
   const getAIResponse = async (type) => {
