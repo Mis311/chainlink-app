@@ -1,11 +1,16 @@
-import React from 'react'
-import WriterInterface from '@/components/WriterInterface'
+import React from "react";
+import WriterInterface from "@/components/WriterInterface";
+import Navbar from "@/components/Header";
+import RightNavbar from "@/components/RightNavbar";
 const dashboard = () => {
   return (
-    <>    <div>dashboard</div>
-    <WriterInterface />
-  </>
-  )
-}
+    <>
+      <Navbar />
+      <RightNavbar></RightNavbar>
 
-export default dashboard
+      <WriterInterface />
+    </>
+  );
+};
+
+export default dashboard;
