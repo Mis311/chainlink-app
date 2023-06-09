@@ -64,7 +64,7 @@ function Home() {
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">
-                Create on today&ldquo;s theme
+                Create on theme of day
               </button>
             </Link>
           </div>
