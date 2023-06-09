@@ -9,7 +9,7 @@ const WalletButton = ({ onClick, disconnect, account }) => {
       <div>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded w-40 overflow-ellipsis overflow-hidden"
-          onClick={account ? () => setOpen(!open) : onClick} // This line has changed
+          onClick={account ? () => setOpen(!open) : onClick} 
         >
           {account ? `Connected: ${account}` : "Connect Wallet"}
         </button>

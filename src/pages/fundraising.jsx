@@ -10,7 +10,7 @@ export default function StartFundraise() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // const response = await contract.methods.createWork(title, description, numberOfWords).send({ from: account });
+    // const response = await contract.methods.
 
     console.log("Fundraising started for work:", title);
   };

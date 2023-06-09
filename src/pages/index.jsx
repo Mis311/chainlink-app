@@ -4,12 +4,15 @@ import "tailwindcss/tailwind.css";
 import "daisyui/dist/full.css";
 import styles from "./Home.module.css";
 import Image from "next/image";
+import DemoDropdown from "@/components/DemoDropDown";
+
 function Home() {
   const [state, setState] = useState({
     showFirstImage: true,
     showSecondImage: false,
     showText: false,
   });
+
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -70,62 +73,68 @@ function Home() {
           </div>
         )}
       </section>
-<div className="mt-28">
-      <section
-        className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10 "
-        style={{ backgroundImage: "url('/background1.png')" }}
-        id="our-story"
-      >
-        <div className="w-4/5">
-          <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
-          <p className="text-xl mb-8 text-gray">
-            ArtiFusion is a studio for all writers and creators to get
-            inspiration, motivation, and fund-raising opportunity on Web3
-            universe. With out AI-driven support tool such as AI streaming, AI
-            assistance, we will support your creative work and helps it to be
-            automated as much as possible.
-          </p>
-        </div>
-      </section>
+      <div className="mt-28">
+        <section
+          className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10 "
+          style={{ backgroundImage: "url('/background1.png')" }}
+          id="our-story"
+        >
+          <div className="w-4/5">
+            <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
+            <p className="text-xl mb-8 text-gray">
+              ArtiFusion is a studio for all writers and creators to get
+              inspiration, motivation, and fund-raising opportunity on Web3
+              universe. With out AI-driven support tool such as AI streaming, AI
+              assistance, we will support your creative work and helps it to be
+              automated as much as possible.
+            </p>
+          </div>
+        </section>
 
-      {/* Company Section  */}
-      <section
-        className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-50 m-10"
-        style={{ backgroundImage: "url('/background1.png')" }}
-      >
-        <div id="demo">
-          <h2 className="text-3xl font-bold mb-4 text-black">Our Mission</h2>
-          <p className="text-xl mb-8 text-gray">
-            Our mission at ArtiFusion is to ease the burden for creators as much
-            as possible and inspire everyone to become storytellers of dreams,
-            future, and potential. We aim to break down the barriers between
-            ideas and execution, empowering creators to turn their thoughts and
-            inspirations into reality. By equipping everyone with the tools to
-            tell their stories, we hope to move forward together into a future
-            of enhanced creative productivity.
-          </p>
-          <button className="">Try Demo</button>
-        </div>
-      </section>
+        {/* Company Section  */}
+        <section
+          className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-50 m-10"
+          style={{ backgroundImage: "url('/background1.png')" }}
+        >
+          <div id="demo">
+            <h2 className="text-3xl font-bold mb-4 text-black">Our Mission</h2>
+            <p className="text-xl mb-8 text-gray">
+              Our mission at ArtiFusion is to ease the burden for creators as
+              much as possible and inspire everyone to become storytellers of
+              dreams, future, and potential. We aim to break down the barriers
+              between ideas and execution, empowering creators to turn their
+              thoughts and inspirations into reality. By equipping everyone with
+              the tools to tell their stories, we hope to move forward together
+              into a future of enhanced creative productivity.
+            </p>
+            <Link href="/dashboard">
+    
+                Try Demo
+            
+            </Link>
+            
+          </div>
+        </section>
 
-      {/* Company Section 3 */}
-      <section
-        className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10"
-        style={{ backgroundImage: "url('/background1.png')" }}
-      >
-        <div className="w-4/5">
-          <h2 className="text-3xl font-bold mb-4 text-gray">Our Team</h2>
-          <p className="text-xl mb-8 text-gray">
-            Our team at ArtiFusion is a diverse group of highly technical
-            members and creative individuals. With a unique blend of skills in
-            technology, storytelling, and art, we are driven by a shared passion
-            for creativity and innovation. Our commitment to technology and
-            creativity enables us to build tools that help automate creative
-            processes, giving our users the freedom to focus on what matters
-            most - creating incredible content and telling compelling stories.
-          </p>
-        </div>
-      </section>
+        {/* Company Section 3 */}
+        <section
+          className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10"
+          style={{ backgroundImage: "url('/background1.png')" }}
+        >
+          <div className="w-4/5">
+            <h2 className="text-3xl font-bold mb-4 text-gray">Our Team</h2>
+            <p className="text-xl mb-8 text-gray">
+              Our team at ArtiFusion is a diverse group of highly technical
+              members and creative individuals. With a unique blend of skills in
+              technology, storytelling, and art, we are driven by a shared
+              passion for creativity and innovation. Our commitment to
+              technology and creativity enables us to build tools that help
+              automate creative processes, giving our users the freedom to focus
+              on what matters most - creating incredible content and telling
+              compelling stories.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );
