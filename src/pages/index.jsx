@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "tailwindcss/tailwind.css";
 import "daisyui/dist/full.css";
 import styles from "./Home.module.css";
-
+import Image from "next/image";
 function Home() {
   const [state, setState] = useState({
     showFirstImage: true,
@@ -24,24 +24,27 @@ function Home() {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, []);
+  }, [state, startTime]);
 
   return (
     <div>
       <section className="flex flex-col justify-center items-center h-96 relative">
         {state.showFirstImage && (
-          <img
+          <Image
             className={`${styles["animate-slide"]} ${styles["animate-fadeInOut"]} object-cover w-full  absolute z-10`}
             src="/inspiration.png"
             alt="Inspiration"
+            width={1280}
+            height={720}
           />
         )}
         {state.showSecondImage && (
-          <img
+          <Image
             className={`${styles["animate-slide"]} ${styles["animate-fadeInOut"]} object-cover w-full  absolute z-10`}
             src="/inspiration2.png"
             alt="Inspiration2"
-            
+            width={1280}
+            height={720}
           />
         )}
         {state.showText && (
@@ -53,7 +56,7 @@ function Home() {
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">
-                Create on today's theme
+                Create on today&apos;s theme
               </button>
             </Link>
           </div>
@@ -65,7 +68,7 @@ function Home() {
         style={{ backgroundImage: "url('/background1.png')" }}
         id="our-story"
       >
-        <div className="w-4/5" >
+        <div className="w-4/5">
           <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
           <p className="text-xl mb-8 text-gray">
             ArtiFusion is a studio for all writers and creators to get
@@ -77,7 +80,6 @@ function Home() {
         </div>
       </section>
 
-  
       {/* Company Section  */}
       <section
         className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-50 m-10"
@@ -102,7 +104,6 @@ function Home() {
       <section
         className="p-10 h-screen/2 flex items-center justify-center bg-opacity-50 x-10 z-10"
         style={{ backgroundImage: "url('/background1.png')" }}
-        
       >
         <div className="w-4/5">
           <h2 className="text-3xl font-bold mb-4 text-gray">Our Team</h2>
