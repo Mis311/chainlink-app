@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
-const QuillNoSSRWrapper = dynamic(
-  () => import('react-quill'), 
-  { ssr: false }
-);
+const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function WriterInterface() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [typingSpeed, setTypingSpeed] = useState(0);
-  const [reaction, setReaction] = useState('');
+  const [reaction, setReaction] = useState("");
 
   useEffect(() => {
     if (value.length === 0) {
       setStartTime(null);
-      setReaction('');
+      setReaction("");
     } else if (startTime === null) {
       setStartTime(Date.now());
     } else {
@@ -26,18 +23,21 @@ export default function WriterInterface() {
       setTypingSpeed(speed);
 
       if (speed > 10) {
-        setReaction('😄 Great progress! Keep going!');
+        setReaction("😄 Great progress! Keep going!");
       } else if (speed > 5) {
-        setReaction('😊 Looking good! Stay focused!');
+        setReaction("😊 Looking good! Stay focused!");
       } else {
-        setReaction('🤔 Thinking in progress. Need any assistance, inspiration, or feedback?');
+        setReaction("🤔 Thinking in progress...");
       }
     }
   }, [value]);
 
   // Call this function to get AI's response
-  const getAIResponse = async () => {
-    const response = await fetch('/api/chatbot', { method: 'POST', body: JSON.stringify({ text: value }) });
+  const getAIResponse = async (type) => {
+    const response = await fetch(`/api/chatbot/${type}`, {
+      method: "POST",
+      body: JSON.stringify({ text: value }),
+    });
     const data = await response.json();
 
     setReaction(data.message);
@@ -49,9 +49,21 @@ export default function WriterInterface() {
       <QuillNoSSRWrapper value={value} onChange={setValue} />
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
-      {reaction.includes('Thinking in progress') && (
-        <button onClick={getAIResponse}>Get AI assistance</button>
-      )}
+
+      <div className="space-x-2 mt-2">
+        <button
+          onClick={() => getAIResponse("inspiration")}
+          className="btn btn-primary"
+        >
+          Get AI inspiration
+        </button>
+        <button
+          onClick={() => getAIResponse("feedback")}
+          className="btn btn-secondary"
+        >
+          Get AI feedback
+        </button>
+      </div>
     </div>
   );
 }

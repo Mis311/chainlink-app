@@ -2,6 +2,7 @@ import "tailwindcss/tailwind.css";
 import "daisyui/dist/full.css";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#F3F4F6]">
@@ -48,6 +49,7 @@ export default function Home() {
           laudantium.
         </p>
       </section>
+      <Footer></Footer>
     </div>
   );
 }
