@@ -1,65 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
+import Card from '@/components/Card';
+import 'tailwindcss/tailwind.css';
 
-export default function StartFundraise() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [numberOfWords, setNumberOfWords] = useState("");
-  const [reason, setReason] = useState("");
-  const [amount, setAmount] = useState("");
+const provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/YOUR_INFURA_PROJECT_ID');
+const contractAddress = 'MyContractAddress';
+const abi = [// ABIs from contract ]; // Paste the ABI of contract here
+]
+// Create a new contract instance
+const contract = new ethers.Contract(contractAddress, abi, provider);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+function Fundraising() {
+  const [works, setWorks] = useState([]);
 
-    // const response = await contract.methods.
+  // Fetch works data from the contract
+  useEffect(() => {
+    const loadWorks = async () => {
+      // const workCount = await contract.workCount();
 
-    console.log("Fundraising started for work:", title);
-  };
+
+      // Create an array to save the promises
+      let promises = [];
+
+      // Fetch each work and save the promise in the array
+      // for(let i = 0; i < workCount.toNumber(); i++) {
+      //   promises.push(contract.works(i));
+      // }
+
+      // Resolve all promises and set the results
+      const workData = await Promise.all(promises);
+      setWorks(workData);
+    };
+
+    loadWorks();
+  }, []);
 
   return (
-    <div>
-      <h1>Start a Fundraise</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label>
-          Description:
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-        <label>
-          Number of Words:
-          <input
-            type="text"
-            value={numberOfWords}
-            onChange={(e) => setNumberOfWords(e.target.value)}
-          />
-        </label>
-        <label>
-          Reason:
-          <select value={reason} onChange={(e) => setReason(e.target.value)}>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </select>
-        </label>
-        <label>
-          Amount:
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-        </label>
-        <button type="submit">Start Fundraising</button>
-      </form>
+    <div className="flex flex-wrap justify-around">
+      {works.map((work, index) => (
+        <Card key={index} work={work} />
+      ))}
     </div>
   );
 }
+
+export default Fundraising;
