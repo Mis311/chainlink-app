@@ -78,14 +78,18 @@ export default function WriterInterface() {
 
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
-
+      <div className="space-x-2 mt-2">
+          <button onClick={() => getAIResponse('inspiration')} className="btn btn-primary">AI inspiration</button>
+          <button onClick={() => getAIResponse('feedback')} className="btn btn-secondary">AI feedback</button>
+        </div>
+        <div className="typewriter">{aiResponse}</div>
       <div className="space-x-2 mt-2">
         <Link href="/fundraising">
           <button
             onClick={() => createWorkInContract()}
-            className="btn btn-primary"
+            className="bg-blue-500 text-white px-4 py-2 rounded w-40"
           >
-            Submit
+            Save & Submit
           </button>
         </Link>
       </div>
