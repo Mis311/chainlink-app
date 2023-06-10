@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
+import "./WriterInterface.module.css";
 
 export default function WriterInterface() {
   const [value, setValue] = useState("");
@@ -33,6 +34,28 @@ export default function WriterInterface() {
       }
     }
   }, [value, startTime]);
+
+  const [aiResponse, setAIResponse] = useState("");
+
+  const getAIResponse = async (type) => {
+    const response = await fetch("/api/generateText", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: value,
+        type: type, // either "feedback" or "suggestion", based on which button was pressed
+        maxTokens: 60,
+      }),
+    });
+
+    const data = await response.json();
+
+    // Now data.text contains the response from the AI.
+    // You can store this in a state variable to display it in your component.
+    setAIResponse(data.text);
+  };
 
   const createWorkInContract = () => {
     const web3 = new Web3(window.ethereum);
@@ -79,10 +102,20 @@ export default function WriterInterface() {
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
       <div className="space-x-2 mt-2">
-          <button onClick={() => getAIResponse('inspiration')} className="btn btn-primary">AI inspiration</button>
-          <button onClick={() => getAIResponse('feedback')} className="btn btn-secondary">AI feedback</button>
-        </div>
-        <div className="typewriter">{aiResponse}</div>
+        <button
+          onClick={() => getAIResponse("inspiration")}
+          className="btn btn-primary"
+        >
+          AI inspiration
+        </button>
+        <button
+          onClick={() => getAIResponse("feedback")}
+          className="btn btn-secondary"
+        >
+          AI feedback
+        </button>
+      </div>
+      <div className="typewriter">{aiResponse}</div>
       <div className="space-x-2 mt-2">
         <Link href="/fundraising">
           <button
