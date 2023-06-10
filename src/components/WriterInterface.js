@@ -3,7 +3,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
 import "./WriterInterface.module.css";
-
+import { config } from "dotenv";
+config();
 export default function WriterInterface() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
@@ -116,15 +117,26 @@ export default function WriterInterface() {
         </button>
       </div>
       <div className="typewriter">{aiResponse}</div>
-      <div className="space-x-2 mt-2">
-        <Link href="/fundraising">
-          <button
-            onClick={() => createWorkInContract()}
-            className="bg-blue-500 text-white px-4 py-2 rounded w-40"
-          >
-            Save & Submit
-          </button>
-        </Link>
+      <div className="flex flex-col items-center">
+        {aiResponse &&
+          aiResponse.map((suggestion, index) => (
+            <div
+              key={index}
+              className="w-full p-4 mb-4 text-center text-gray-800 bg-white rounded-lg shadow-md"
+            >
+              <p>{suggestion}</p>
+            </div>
+          ))}
+        <div className="space-x-2 mt-2">
+          <Link href="/fundraising">
+            <button
+              onClick={() => createWorkInContract()}
+              className="bg-blue-500 text-white px-4 py-2 rounded w-40"
+            >
+              Save & Submit
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
