@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 const QuillNoSSRWrapper = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 import "./WriterInterface.module.css";
 import { config } from "dotenv";
 config();
@@ -13,6 +14,25 @@ export default function WriterInterface() {
   const [typingSpeed, setTypingSpeed] = useState(0);
   const [reaction, setReaction] = useState("");
   const [aiResponse, setAIResponse] = useState("");
+
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"],
+      ["blockquote", "code-block"],
+      [{ header: 1 }, { header: 2 }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ["clean"],
+      ["link", "image"], // this is the image button
+    ],
+  };
 
   useEffect(() => {
     if (value.length === 0) {
@@ -94,7 +114,7 @@ export default function WriterInterface() {
         placeholder="Description"
       />
 
-      <QuillNoSSRWrapper value={value} onChange={setValue} />
+      <QuillNoSSRWrapper modules={modules} value={value} onChange={setValue} />
 
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
