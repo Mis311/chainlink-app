@@ -8,6 +8,7 @@ import { config } from "dotenv";
 config();
 export default function WriterInterface() {
   const [value, setValue] = useState("");
+  console.log(value);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startTime, setStartTime] = useState(null);
@@ -114,7 +115,7 @@ export default function WriterInterface() {
         placeholder="Description"
       />
 
-      <QuillNoSSRWrapper modules={modules} value={value} onChange={setValue} />
+      <QuillNoSSRWrapper modules={modules} value={value} onChange={setValue}  />
 
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
