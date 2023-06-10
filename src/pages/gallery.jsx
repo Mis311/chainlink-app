@@ -530,62 +530,63 @@ export default function Gallery() {
   }, [language]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <header className="p-5 text-center bg-blue-500 text-white">
-        <h1 className="text-4xl mb-2">The Head of Johanan</h1>
-        <p>She sat on a table with a decision.</p>
-      </header>
+    <>
+      <div className="flex justify-center space-x-4 m-10">
+        <button
+          onClick={() => setLanguage("English")}
+          className="btn btn-outline btn-accent"
+        >
+          English
+        </button>
+        <button
+          onClick={() => setLanguage("Spanish")}
+          className="btn btn-outline btn-accent"
+        >
+          Spanish
+        </button>
+        <button
+          onClick={() => setLanguage("Chinese")}
+          className="btn btn-outline btn-accent"
+        >
+          Chinese
+        </button>
+        <button
+          onClick={() => setLanguage("Korean")}
+          className="btn btn-outline btn-accent"
+        >
+          Korean
+        </button>
+        <button
+          onClick={() => setLanguage("Russian")}
+          className="btn btn-outline btn-accent"
+        >
+          Russian
+        </button>
+      </div>
+      <div className="bg-gray-50 min-h-screen">
+        <header className="p-5 text-center bg-blue-500 text-white">
+          <h1 className="text-4xl mb-2">The Head of Johanan</h1>
+          <p>She sat on a table with a decision.</p>
+        </header>
 
-      <main className="p-5 space-y-5">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {/* Replace "Image" with the actual <img> tags or components representing your images */}
-          <Image />
-          <Image />
-          <Image />
-          <Image />
-          <Image />
-        </div>
+        <main className="p-5 space-y-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {/* Replace "Image" with the actual <img> tags or components representing your images */}
+            <Image />
+            <Image />
+            <Image />
+            <Image />
+            <Image />
+          </div>
 
-        <article className="prose max-w-none whitespace-pre-line">
-          {text}
-        </article>
-      </main>
+          <article className="prose max-w-none whitespace-pre-line">
+            {text}
+          </article>
+        </main>
 
-      <footer className="p-5">
-        <div className="flex justify-center space-x-4">
-          <button
-            onClick={() => setLanguage("English")}
-            className="btn btn-outline btn-accent"
-          >
-            English
-          </button>
-          <button
-            onClick={() => setLanguage("Japanese")}
-            className="btn btn-outline btn-accent"
-          >
-            Japanese
-          </button>
-          <button
-            onClick={() => setLanguage("Chinese")}
-            className="btn btn-outline btn-accent"
-          >
-            Chinese
-          </button>
-          <button
-            onClick={() => setLanguage("Korean")}
-            className="btn btn-outline btn-accent"
-          >
-            Korean
-          </button>
-          <button
-            onClick={() => setLanguage("Spanish")}
-            className="btn btn-outline btn-accent"
-          >
-            Spanish
-          </button>
-        </div>
-      </footer>
-    </div>
+        <footer className="p-5"></footer>
+      </div>
+    </>
   );
 }
 
