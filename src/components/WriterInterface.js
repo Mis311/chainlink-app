@@ -36,7 +36,7 @@ export default function WriterInterface() {
 
   const createWorkInContract = () => {
     const web3 = new Web3(window.ethereum);
-    const contractAddress = "0xYourContractAddress"; // Replace withcontract address
+    const contractAddress = "0x7Df824b22756ef4a10E4351e76FA358bD1d862a3";
     const abi = []; // Replace contract ABI
     const contract = new web3.eth.Contract(abi, contractAddress);
 
@@ -80,13 +80,13 @@ export default function WriterInterface() {
       <p>Reaction: {reaction}</p>
 
       <div className="space-x-2 mt-2">
-        <Link href="/fundraising"><button
-          onClick={() => createWorkInContract()}
-          className="btn btn-primary"
-         
-        >
-          Submit
-        </button>
+        <Link href="/fundraising">
+          <button
+            onClick={() => createWorkInContract()}
+            className="btn btn-primary"
+          >
+            Submit
+          </button>
         </Link>
       </div>
     </div>
