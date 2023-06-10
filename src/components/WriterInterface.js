@@ -12,6 +12,7 @@ export default function WriterInterface() {
   const [startTime, setStartTime] = useState(null);
   const [typingSpeed, setTypingSpeed] = useState(0);
   const [reaction, setReaction] = useState("");
+  const [aiResponse, setAIResponse] = useState("");
 
   useEffect(() => {
     if (value.length === 0) {
@@ -36,8 +37,6 @@ export default function WriterInterface() {
     }
   }, [value, startTime]);
 
-  const [aiResponse, setAIResponse] = useState("");
-
   const getAIResponse = async (type) => {
     const response = await fetch("/api/generateText", {
       method: "POST",
@@ -46,16 +45,13 @@ export default function WriterInterface() {
       },
       body: JSON.stringify({
         text: value,
-        type: type, // either "feedback" or "suggestion", based on which button was pressed
-        maxTokens: 60,
+        type: type,
       }),
     });
 
     const data = await response.json();
 
-    // Now data.text contains the response from the AI.
-    // You can store this in a state variable to display it in your component.
-    setAIResponse(data.text);
+    setAIResponse(data.result);
   };
 
   const createWorkInContract = () => {
@@ -107,26 +103,23 @@ export default function WriterInterface() {
           onClick={() => getAIResponse("inspiration")}
           className="btn btn-primary"
         >
-          AI inspiration
+          Get AI Inspiration
         </button>
+
         <button
-          onClick={() => getAIResponse("feedback")}
-          className="btn btn-secondary"
+          onClick={() => getAIResponse("suggestion")}
+          className="btn btn-primary"
         >
-          AI feedback
+          Get AI Suggestion
         </button>
       </div>
-      <div className="typewriter">{aiResponse}</div>
-      <div className="flex flex-col items-center">
-        {aiResponse &&
-          aiResponse.map((suggestion, index) => (
-            <div
-              key={index}
-              className="w-full p-4 mb-4 text-center text-gray-800 bg-white rounded-lg shadow-md"
-            >
-              <p>{suggestion}</p>
-            </div>
-          ))}
+      <div className="flex flex-col items-start">
+        <h1 className="w-full p-4 mb-4 text-center text-gray-800 bg-white rounded-lg shadow-md typewriter">
+          <p>{aiResponse}</p>
+        </h1>
+      </div>
+
+      <div className="flex flex-col items-start">
         <div className="space-x-2 mt-2">
           <Link href="/fundraising">
             <button
