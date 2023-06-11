@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-import Image from "next/image";
 export default function Gallery() {
   const [language, setLanguage] = useState("English");
   const [text, setText] = useState("");
