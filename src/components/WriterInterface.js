@@ -3,7 +3,9 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import ImageGeneration from './ImageGeneration'
 const QuillNoSSRWrapper = dynamic(() => import('react-quill'), { ssr: false })
-
+import './WriterInterface.module.css'
+import { config } from 'dotenv'
+config()
 export default function WriterInterface() {
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
@@ -11,6 +13,7 @@ export default function WriterInterface() {
   const [startTime, setStartTime] = useState(null)
   const [typingSpeed, setTypingSpeed] = useState(0)
   const [reaction, setReaction] = useState('')
+  const [aiResponse, setAIResponse] = useState('')
 
   useEffect(() => {
     if (value.length === 0) {
@@ -35,9 +38,34 @@ export default function WriterInterface() {
     }
   }, [value, startTime])
 
+  const saveToIPFS = async (type) => {
+    //  display form
+    // save img to ipfs and get the url
+    // place it on the correct position on the document
+    //
+  }
+
+
+  const getAIResponse = async (type) => {
+    const response = await fetch('/api/generateText', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: value,
+        type: type,
+      }),
+    })
+
+    const data = await response.json()
+
+    setAIResponse(data.result)
+  }
+
   const createWorkInContract = () => {
     const web3 = new Web3(window.ethereum)
-    const contractAddress = '0xYourContractAddress' // Replace withcontract address
+    const contractAddress = '0x7Df824b22756ef4a10E4351e76FA358bD1d862a3'
     const abi = [] // Replace contract ABI
     const contract = new web3.eth.Contract(abi, contractAddress)
 
@@ -79,18 +107,46 @@ export default function WriterInterface() {
 
       <p>Typing speed: {typingSpeed} cps</p>
       <p>Reaction: {reaction}</p>
-
       <div className="space-x-2 mt-2">
-        <Link href="/fundraising">
-          <button
-            onClick={() => createWorkInContract()}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </Link>
+        <button
+          onClick={() => getAIResponse('inspiration')}
+          className="btn btn-primary"
+        >
+          Get AI Inspiration
+        </button>
 
+        <button
+          onClick={() => getAIResponse('suggestion')}
+          className="btn btn-primary"
+        >
+          Get AI Suggestion
+        </button>
+
+        <button
+          onClick={saveToIPFS}
+          className="btn btn-primary"
+        >
+          Get AI Image
+        </button>
         <ImageGeneration />
+      </div>
+      <div className="flex flex-col items-start">
+        <h1 className="w-full p-4 mb-4 text-center text-gray-800 bg-white rounded-lg shadow-md typewriter">
+          <p>{aiResponse}</p>
+        </h1>
+      </div>
+
+      <div className="flex flex-col items-start">
+        <div className="space-x-2 mt-2">
+          <Link href="/fundraising">
+            <button
+              onClick={() => createWorkInContract()}
+              className="bg-blue-500 text-white px-4 py-2 rounded w-40"
+            >
+              Save & Submit
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )
