@@ -48,69 +48,71 @@ export default function Header() {
             <p className="text-blue-500">About Us</p>
           </Link>
 
-          <a
-            id="options-menu"
-            aria-haspopup="true"
-            aria-expanded="true"
+          <div
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
-            onClick={null}
-            className="text-blue-500 cursor-pointer"
           >
-            Demo
-          </a>
-          {isOpen && (
-            <div className="origin-top-right absolute right-60 top-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-              <div
-                className="py-1"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="options-menu"
-              >
-                <Link href="/dashboard">
-                  <p
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
-                  >
-                    Writer Assist Tool
-                  </p>
-                </Link>
-                <Link href="/all-stories">
-                  <p
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
-                  >
-                    fundraising
-                  </p>
-                </Link>
-                <Link href="/gallery">
-                  <p
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
-                  >
-                    View ArtiWork
-                  </p>
-                </Link>
+            <a
+              id="options-menu"
+              aria-haspopup="true"
+              aria-expanded="true"
+              className="text-blue-500 cursor-pointer"
+            >
+              Demo
+            </a>
+            {isOpen && (
+              <div className="origin-top-right absolute right-60 top-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <Link href="/dashboard">
+                    <p
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Writer Assist Tool
+                    </p>
+                  </Link>
+                  <Link href="/all-stories">
+                    <p
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      fundraising
+                    </p>
+                  </Link>
+                  <Link href="/gallery">
+                    <p
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      View ArtiWork
+                    </p>
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
           <a className="text-blue-500" href="https://discord.gg/ugKSAW3b">
             Discord
           </a>
-   
+
           <WalletButton
-        account={accountMetaMask}
-        onClick={connectWalletMetaMask}
-        walletType="MetaMask"
-        className="ml-3"
-        value={"connect Metamask"}
-      />
-      <WalletButton
-        account={accountFlow}
-        onClick={connectWalletFlow}
-        walletType="Flow"
-      />
-        
+            account={accountMetaMask}
+            onClick={connectWalletMetaMask}
+            walletType="MetaMask"
+            className="ml-3"
+            value={"connect Metamask"}
+          />
+          <WalletButton
+            account={accountFlow}
+            onClick={connectWalletFlow}
+            walletType="Flow"
+          />
         </div>
       </header>
     </nav>
