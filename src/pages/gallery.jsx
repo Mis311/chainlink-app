@@ -601,6 +601,21 @@ export default function Gallery() {
             {text}
           </article>
         </main>
+        <button
+  className="btn btn-outline btn-accent mx-2"
+>
+  Request Collaboration
+</button>
+<button
+  className="btn btn-outline btn-accent mx-2"
+>
+  Add Translation
+</button>
+<button
+  className="btn btn-outline btn-accent mx-2"
+>
+  Add Images
+</button>
 
         <footer className="p-5"></footer>
       </div>
