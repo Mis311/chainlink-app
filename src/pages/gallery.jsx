@@ -535,7 +535,7 @@ export default function Gallery() {
 
   useEffect(() => {
     setText(texts[language]);
-  }, [language]);
+  }, [language, texts]);
 
   return (
     <>
@@ -574,13 +574,13 @@ export default function Gallery() {
       <div className="bg-gray-50 min-h-screen">
         <header className="p-5 text-center bg-blue-500 text-white">
           <h1 className="text-4xl mb-2"> The Head of John the Baptist</h1>
-          <p> She sits there in a dining room while her favorite play "Salome" is playing. "Tens of millions of people must die," she said.</p>
+          <p> She sits there in a dining room while her favorite play &quot;Salome&quot; is playing. &quot;Tens of millions of people must die,&quot; she said.</p>
         </header>
 
         <main className="p-5 space-y-5">
         <Carousel showThumbs={false}>
           <div>
-            <Image src="dining-table.png"/>
+            <Image src="dining-table.png" />
           </div>
           <div>
             <Image src="dish.png"/>
