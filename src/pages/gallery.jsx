@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { MyAppContext } from './_app'
+import NextImage from "next/image";
 
 export default function Gallery() {
   const { account, contract } = useContext(MyAppContext)
