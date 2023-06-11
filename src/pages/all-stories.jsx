@@ -74,7 +74,7 @@ const mockData = [
   /* more data */
 ];
 
-const allStories = () => {
+const AllStories = () => {
   const [creativeWorks, setCreativeWorks] = useState([]);
 
   useEffect(() => {
@@ -123,4 +123,4 @@ const allStories = () => {
     </div>
   );
 };
-export default allStories;
+export default AllStories;
