@@ -13,7 +13,6 @@ function Home() {
     showText: false,
   });
 
-
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setState((prevState) => ({
@@ -88,6 +87,13 @@ function Home() {
               assistance, we will support your creative work and helps it to be
               automated as much as possible.
             </p>
+            <div className="flex w-auto">
+              <Link href="/gallery">
+                <button className="btn bg-primary border-transparent flex-end">
+                  Read Novel
+                </button>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -108,11 +114,10 @@ function Home() {
               into a future of enhanced creative productivity.
             </p>
             <Link href="/dashboard">
-    
-                Try Demo
-            
+              <button className="btn bg-primary border-transparent">
+                Try Dashboard
+              </button>
             </Link>
-            
           </div>
         </section>
 
