@@ -15,18 +15,24 @@ const AboutUs = () => {
       <div className="gap-5 flex">
   <div className="border p-4 rounded shadow flex">
     <Image
+      src="/inspiration.png"
+      alt="About Us"
+      width={900}
+      height={300}
+    />
+    <div className="flex flex-col ml-4">  
+      <h2 className="text-2xl mb-2">Vision</h2>
+      <p className="mb-4">
+        We will compose of talented writers, editors, designers, and more,
+        all united by our love for storytelling and commitment to bringing
+        unique narratives to life.
+      </p>
+          <Image
       src="/inspiration2.png"
       alt="About Us"
       width={900}
       height={600}
     />
-    <div className="flex flex-col ml-4">  
-      <h2 className="text-2xl mb-2">Our Team</h2>
-      <p className="mb-4">
-        We are composed of talented writers, editors, designers, and more,
-        all united by our love for storytelling and commitment to bringing
-        unique narratives to life.
-      </p>
     </div>
   </div>
 </div>
