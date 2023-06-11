@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 const API_TOKEN = process.env.HUGGING
 // const PINATA_KEY = process.env.HUGGING
-
+import Image from "next/image";
 const saveImage = async (blob) => {
   const updataData = new FormData()
   updataData.append('file', blob)
@@ -77,7 +77,7 @@ const ImageGeneration = () => {
         {loading && <div className="loading">Loading...</div>}
         {!loading && output && (
           <div className="result-image">
-            <img src={output} alt="art" />
+            <Image src={output} alt="art" width={500} height={300} />
           </div>
         )}
       </div>

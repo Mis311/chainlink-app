@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-
+import Image from "next/image";
 export default function Gallery() {
   const [language, setLanguage] = useState("English");
   const [text, setText] = useState("");
@@ -626,7 +626,7 @@ export default function Gallery() {
 function Image({ src }) {
   return (
     <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-      <img src={src} alt="Image" />
+      <Image src={src} alt="Image" width={400} height={300} />
     </div>
   );
 }

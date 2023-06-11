@@ -51,7 +51,7 @@ export default function Header() {
           <a
             id="options-menu"
             aria-haspopup="true"
-            aria-expanded="isOpen"
+            aria-expanded="true"
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
             onClick={null}
