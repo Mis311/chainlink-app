@@ -1,17 +1,30 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import 'tailwindcss/tailwind.css'
-import 'daisyui/dist/full.css'
-import styles from './Home.module.css'
-import Image from 'next/image'
-import DemoDropdown from '@/components/DemoDropDown'
+import Link from "next/link";
+import { useEffect, useState, useContext } from "react";
+import "tailwindcss/tailwind.css";
+import "daisyui/dist/full.css";
+import styles from "./Home.module.css";
+import Image from "next/image";
+import DemoDropdown from "@/components/DemoDropDown";
+import { MyAppContext } from "./_app";
 
 function Home() {
   const [state, setState] = useState({
     showFirstImage: true,
     showSecondImage: false,
     showText: false,
-  })
+  });
+
+  const { contract } = useContext(MyAppContext);
+  console.log("+++++Home ~ contract:", contract);
+
+  const getTheme = async () => {
+    try {
+      const theme = await contract?._methods?.getTheme().call();
+      console.log("______theme:", theme);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // useEffect(() => {
   //   const axios = require('axios')
@@ -31,36 +44,35 @@ function Home() {
   //     data: data,
   //   }
 
-
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setState((prevState) => ({
         ...prevState,
         showFirstImage: false,
         showSecondImage: true,
-      }))
-    }, 5000)
+      }));
+    }, 5000);
 
     const timer2 = setTimeout(() => {
       setState((prevState) => ({
         ...prevState,
         showSecondImage: false,
         showText: true,
-      }))
-    }, 10000)
+      }));
+    }, 10000);
 
     return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-    }
-  }, [])
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
 
   return (
     <div>
       <section className="flex flex-col justify-center items-center h-96 relative">
         {state.showFirstImage && (
           <Image
-            className={`${styles['animate-slide']} ${styles['animate-fadeInOut']} object-cover w-full  absolute z-10`}
+            className={`${styles["animate-slide"]} ${styles["animate-fadeInOut"]} object-cover w-full  absolute z-10`}
             src="/inspiration.png"
             alt="Inspiration"
             width={1280}
@@ -69,7 +81,7 @@ function Home() {
         )}
         {state.showSecondImage && (
           <Image
-            className={`${styles['animate-slide']} ${styles['animate-fadeInOut']} object-cover w-full  absolute z-10`}
+            className={`${styles["animate-slide"]} ${styles["animate-fadeInOut"]} object-cover w-full  absolute z-10`}
             src="/inspiration2.png"
             alt="Inspiration2"
             width={1280}
@@ -79,7 +91,7 @@ function Home() {
         {state.showText && (
           <div className="text-center p-10 z-20 absolute text-white">
             <h1
-              className={`${styles['inspiration-gradient']} text-4xl font-bold mb-4`}
+              className={`${styles["inspiration-gradient"]} text-4xl font-bold mb-4`}
             >
               &quot;Inspiration&quot;
             </h1>
@@ -99,6 +111,7 @@ function Home() {
         >
           <div className="w-4/5">
             <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
+            <button onClick={getTheme}>get Theme From Chainlink</button>
             <p className="text-xl mb-8 text-gray">
               ArtiFusion is a studio for all writers and creators to get
               inspiration, motivation, and fund-raising opportunity on Web3
@@ -132,12 +145,7 @@ function Home() {
               the tools to tell their stories, we hope to move forward together
               into a future of enhanced creative productivity.
             </p>
-            <Link href="/dashboard">
-    
-                Try Demo
-            
-            </Link>
-            
+            <Link href="/dashboard">Try Demo</Link>
           </div>
         </section>
 
@@ -162,7 +170,7 @@ function Home() {
         </section>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
