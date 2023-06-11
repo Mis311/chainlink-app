@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 const API_TOKEN = process.env.HUGGING
-// const PINATA_KEY = process.env.HUGGING
 
 const saveImage = async (blob) => {
   const updataData = new FormData()
@@ -22,7 +21,6 @@ const saveImage = async (blob) => {
   )
 
   console.log('yay', 'https://gateway.pinata.cloud/ipfs/' + res.data.IpfsHash)
-  // setImage('https://gateway.pinata.cloud/ipfs/' + res.data.IpfsHash)
 }
 
 const ImageGeneration = () => {
@@ -51,7 +49,6 @@ const ImageGeneration = () => {
     }
 
     const blob = await response.blob()
-    console.log('🚀 ~ file: ImageGeneration.js:31 ~ handleSubmit ~ blob:', blob)
     setOutput(URL.createObjectURL(blob))
     setLoading(false)
 
