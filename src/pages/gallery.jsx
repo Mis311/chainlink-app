@@ -94,7 +94,10 @@ export default function Gallery() {
     He has to look at someone and realize what death is—what an innocent death is. Blood on the White House carpet. It's reality brought home.
     When I suggested this to friends in the Pentagon they said, "My God, that's terrible. Having to kill someone would distort the President's judgment. He might never push the button."
     — Roger Fisher, Bulletin of the Atomic Scientists, March 1981`,
-    Spanish: `Ocurrió durante una cena.
+    Spanish: `
+    La cabeza de Juan el Bautista
+    
+    Ocurrió durante una cena.
 
     "―No te regocijes solo porque el látigo que te atormenta se ha roto. De la semilla de la serpiente surgirá un basilisco que devorará a las aves."
     
@@ -184,6 +187,7 @@ export default function Gallery() {
     
     `,
     Chinese: `
+    约翰洗者的头颅
 
     这是在晚餐席上发生的事情。
     
@@ -297,7 +301,10 @@ export default function Gallery() {
 他必须看着某个人并意识到死亡是什么，无辜死亡是什么。白宫地毯上的鲜血。这是现实带回家。
 当我向五角大楼的朋友们提出这个建议时，他们说：“天哪，那太可怕了。必须杀人会扭曲总统的判断力。他可能永远不会按下按钮。”
 — 罗杰·费舍尔（Roger Fisher），《原子科学家通讯》（Bulletin of the Atomic Scientists），1981年3月`,
-    Korean: `그것은 야식을 먹는 동안의 일이었다.
+    Korean: `
+    요한 세례자의 머리
+    
+    그것은 야식을 먹는 동안의 일이었다.
 
     "너를 괴롭히는 채찍이 부러졌다 하여 기뻐하지 말라. 뱀의 씨에서 바실리스크가 태어나 그의 자식이 새들을 삼킬 것이다."
     
@@ -565,18 +572,18 @@ export default function Gallery() {
       </div>
       <div className="bg-gray-50 min-h-screen">
         <header className="p-5 text-center bg-blue-500 text-white">
-          <h1 className="text-4xl mb-2">The Head of Johanan</h1>
-          <p>She sat on a table with a decision.</p>
+          <h1 className="text-4xl mb-2"> The Head of John the Baptist</h1>
+          <p> She sits there in a dining room while her favorite play "Salome" is playing. "Tens of millions of people must die," she said.</p>
         </header>
 
         <main className="p-5 space-y-5">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {/* Replace "Image" with the actual <img> tags or components representing your images */}
-            <Image />
-            <Image />
-            <Image />
-            <Image />
-            <Image />
+            
+            <Image src="dining-table"/>
+            <Image src="dish"/>
+            <Image src="chef"/>
+            <Image src="george"/>
+            <Image src="leaving-room"/>
           </div>
 
           <article className="prose max-w-none whitespace-pre-line">
