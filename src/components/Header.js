@@ -52,9 +52,11 @@ export default function Header() {
           <div className="font-bold text-2xl cursor-pointer">ArtiFusion</div>
         </Link>
         <div className="flex space-x-4 cursor-pointer">
-          <a className="text-blue-500" href="#our-story">
+          <Link href="/about-us">
+          <p className="text-blue-500" >
             About Us
-          </a>
+          </p>
+          </Link>
 
           <a
             id="options-menu"

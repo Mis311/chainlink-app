@@ -133,10 +133,11 @@ function Home() {
               into a future of enhanced creative productivity.
             </p>
             <Link href="/dashboard">
-              <button className="btn bg-primary border-transparent">
-                Try Dashboard
-              </button>
+    
+                Try Demo
+            
             </Link>
+            
           </div>
         </section>
 
