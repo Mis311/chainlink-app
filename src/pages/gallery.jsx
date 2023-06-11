@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import NextImage from "next/image";
 export default function Gallery() {
   const [language, setLanguage] = useState("English");
   const [text, setText] = useState("");
@@ -574,47 +575,44 @@ export default function Gallery() {
       <div className="bg-gray-50 min-h-screen">
         <header className="p-5 text-center bg-blue-500 text-white">
           <h1 className="text-4xl mb-2"> The Head of John the Baptist</h1>
-          <p> She sits there in a dining room while her favorite play &quot;Salome&quot; is playing. &quot;Tens of millions of people must die,&quot; she said.</p>
+          <p>
+            {" "}
+            She sits there in a dining room while her favorite play
+            &quot;Salome&quot; is playing. &quot;Tens of millions of people must
+            die,&quot; she said.
+          </p>
         </header>
 
         <main className="p-5 space-y-5">
-        <Carousel showThumbs={false}>
-          <div>
-            <Image src="dining-table.png" />
-          </div>
-          <div>
-            <Image src="dish.png"/>
-          </div>
-          <div>
-            <Image src="chef.png"/>
-          </div>
-          <div>
-            <Image src="george.png"/>
-          </div>
-          <div>
-            <Image src="leaving-room.png"/>
-          </div>
-        </Carousel>
+          <Carousel showThumbs={false}>
+            <div>
+              <Image src="dining-table.png" />
+            </div>
+            <div>
+              <Image src="dish.png" />
+            </div>
+            <div>
+              <Image src="chef.png" />
+            </div>
+            <div>
+              <Image src="george.png" />
+            </div>
+            <div>
+              <Image src="leaving-room.png" />
+            </div>
+          </Carousel>
 
           <article className="prose max-w-none whitespace-pre-line">
             {text}
           </article>
         </main>
-        <button
-  className="btn btn-outline btn-accent mx-2"
->
-  Request Collaboration
-</button>
-<button
-  className="btn btn-outline btn-accent mx-2"
->
-  Add Translation
-</button>
-<button
-  className="btn btn-outline btn-accent mx-2"
->
-  Add Images
-</button>
+        <button className="btn btn-outline btn-accent mx-2">
+          Request Collaboration
+        </button>
+        <button className="btn btn-outline btn-accent mx-2">
+          Add Translation
+        </button>
+        <button className="btn btn-outline btn-accent mx-2">Add Images</button>
 
         <footer className="p-5"></footer>
       </div>
@@ -625,7 +623,7 @@ export default function Gallery() {
 function Image({ src }) {
   return (
     <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-      <Image src={src} alt="Image" width={400} height={300} />
+      <NextImage src={src} alt="Image" width={400} height={300} />
     </div>
   );
 }
