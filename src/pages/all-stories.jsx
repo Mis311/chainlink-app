@@ -105,6 +105,17 @@ const allStories = () => {
             ></div>
             <h2 className="text-2xl mb-2">{work.title}</h2>
             <p className="mb-4">{work.description}</p>
+
+            <div className="h-2 mb-4 bg-gray-200">
+              <div
+                style={{
+                  width: `${(work.amountRaised / work.value) * 100}%`,
+                  backgroundColor: "lightBlue",
+                  height: "100%",
+                }}
+              ></div>
+            </div>
+            <h2>Raiased 100%</h2>
             <p className="font-bold">{work.value} words</p>
           </div>
         ))}
@@ -112,5 +123,4 @@ const allStories = () => {
     </div>
   );
 };
-
 export default allStories;

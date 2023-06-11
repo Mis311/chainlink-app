@@ -18,7 +18,7 @@ const WalletButton = ({ onClick, disconnect, account }) => {
       {open && (
         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
 
-            <Link href="/fundraising">
+            <Link href="/all-stories">
               <p
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 role="menuitem"
