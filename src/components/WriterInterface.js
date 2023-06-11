@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import ImageGeneration from './ImageGeneration'
 import { EVM_ABI } from '../contract-data/EVMcontract'
 import { Web3Storage } from 'web3.storage'
 import Web3 from 'web3'
+import { MyAppContext } from 'src/pages/_app'
+const { ethers } = require('ethers')
 
 const QuillNoSSRWrapper = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 import './WriterInterface.module.css'
 import { config } from 'dotenv'
 config()
+
 export default function WriterInterface() {
-  const [CID, setCID] = useState('')
+  const { account, contract } = useContext(MyAppContext)
   const [data, setData] = useState('')
-  const [contract, setContract] = useState('')
+  console.log('_methods', contract?._methods)
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -89,50 +92,11 @@ export default function WriterInterface() {
     setAIResponse(data.result)
   }
 
-  const saveToContract = (e) => {
-    e.preventDefault()
-
-    const web3 = new Web3(window.ethereum)
-    const contractAddress = '0xC971cBFb42bEb12aC8baDC1AC1d9E52fa79B5B68'
-
-    const contract = new web3.eth.Contract(EVM_ABI, contractAddress)
-    setContract(contract)
-    const getCID = saveToWeb3()
-    if (CID) {
-      console.log('what is getCID:', getCID)
-      createWorkInContract(getCID)
-    }
-
-    //  get input save it to ips get cid
-    //  save cid in sc
-    //  after saving it redirect to fundraising
-
-    //More to add
-  }
-
-  const createWorkInContract = async (getCID) => {
-    try {
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      const account = accounts[0]
-
-      await contract.methods
-        .createWork(title, getCID, 1)
-        .send({ from: account })
-    } catch (error) {
-      console.error('An error occurred: ', error)
-    }
-  }
-
   const saveToWeb3 = async () => {
     try {
       const API_TOKEN =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGMwOThmYkQyQzM3ZEY0YjI1N2UzYWNDMjdCMzgyNDg3ZWE3NWM1NjUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODY0NDk0ODYxMjMsIm5hbWUiOiJhcnRmdXNzaW9uIn0.KDARM-EU7BqN1E2Fh1My0gnH23_rRezn9qShFhw2_R4'
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGMwOThmYkQyQzM3ZEY0YjI1N2UzYWNDMjdCMzgyNDg3ZWE3NWM1NjUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODY1MDAyMTMzMzIsIm5hbWUiOiJhcnRmdXNzaW9uIn0.6J-GhgCOA6dXvDvDCgft16rpYBBwF7ISykLI81E4kls'
 
-      // const client = new Web3Storage({
-      //   token: process.env.NEXT_PUBLIC_WEB3STORAGE_APIKEY,
-      // })
       const client = new Web3Storage({
         token: API_TOKEN,
       })
@@ -155,18 +119,58 @@ export default function WriterInterface() {
             `> 🛰 sent ${bytes.toLocaleString()} bytes to web3.storage`,
           ),
       })
-
-      console.log(`https://dweb.link/ipfs/${cid}`)
-      setCID(`https://dweb.link/ipfs/${cid}`)
+      return `https://dweb.link/ipfs/${cid}`
+      // setCID(`https://dweb.link/ipfs/${cid}`)
     } catch (error) {
       console.log(error)
     }
-    // Notify executing, Success or fail
   }
 
-  const getData = async () => {
+  const saveToContract = async (e) => {
+    try {
+      const getCID = await saveToWeb3()
+      if (getCID) {
+        createWorkInContract(getCID)
+        // PUSH TO GALLERY  all-stories
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    // const web3 = new Web3(window.ethereum)
+    // const contractAddress = '0xC971cBFb42bEb12aC8baDC1AC1d9E52fa79B5B68'
+    // const contract = new web3.eth.Contract(EVM_ABI, contractAddress)
+    // setContract(contract)
+    // const getCID = await saveToWeb3()
+    // if (getCID) {
+    //   createWorkInContract(getCID)
+    // }
+
+    //  get input save it to ips get cid
+    //  save cid in sc
+    // Notify executing, Success or fail
+    //  after saving it redirect to fundraising
+    //More to add
+  }
+
+  const createWorkInContract = async (getCID) => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      })
+      const account = accounts[0]
+
+      await contract?._methods
+        ?.createWork(title, description, getCID)
+        .send({ from: account })
+    } catch (error) {
+      console.error('An error occurred: ', error)
+    }
+  }
+
+  const getData1 = async () => {
     let data = await fetch(
-      'https://bafybeihlk7izcvohy5acr7yb4mn4cfrylksxfdlc4mxjlp7e6pwzgujk6e.ipfs.dweb.link/storyData.json',
+      'https://bafybeifhqlej43qouv5t2vunnqlrj5lrz3u2ahu2rfhqd6gp277rf6bf2y.ipfs.dweb.link/storyData.json',
     )
     // let data = await fetch(
     //   'https://bafybeicde2pvudssi5fheuwdajpyavtefkhybgskc2pynu67qlkl7bvzq4.ipfs.dweb.link/storyData.json',
@@ -174,6 +178,75 @@ export default function WriterInterface() {
     data = await data.json()
     console.log('🚀 ~ file: WriterInterface.js:165 ~ getData ~ data:', data)
     setData(data)
+  }
+
+  const getData = async () => {
+    console.log('getData:')
+    try {
+      const count = await contract?._methods?.workcount().call()
+      const len = Number(count)
+      console.log(
+        '🚀 ~ file: WriterInterface.js:189 ~ getData ~ count:',
+        typeof count,
+        len,
+      )
+
+      const data = []
+      for (let i = 0; i < len; i++) {
+        const cur = await contract?._methods?.works(i).call()
+
+        // currentState: 'In Progress'
+        // description: 'https://dweb.link/ipfs/bafybeigtky6vfh7scppbf2ws5hcbfvs7afstbjcjz5eltcarwxk5ug4r4y'
+        // id: 0n
+        // numberOfWords: '1'
+        // title: 'My cats are beautiful'
+        // totalFund: 0n
+        // writerAddress: '0xA41A75Afbf2E7dE5DE8FF764AFa75b4CF54FCA85'
+        // __length__: 7
+        console.log('______whatcur:', cur)
+        const obj = {}
+
+        obj.description = cur.description
+        obj.currentState = cur.currentState
+        obj.id = Number(cur.id)
+        obj.content = cur.numberOfWords
+        obj.title = cur.title
+        obj.totalFund = Number(cur.totalFund)
+        obj.author = cur.writerAddress
+        console.log('obj:', obj)
+      }
+
+      // await contract._methods
+      // .createWork(title, getCID, '1')
+      // .send({ from: account })
+
+      // console.log('🚀 ~ file: _app.js:55 ~ getAllBets ~ req:', req)
+      // // need to create obj
+      // const temp = []
+
+      // for (let i = 0; i < req.length; i++) {
+      //   const cur = req[i]
+      //   const currentBetAllInfo = await contract.bets(cur.id)
+      //   const obj = {}
+      //   obj.amount = ethers.utils.formatEther(cur.amount.toString())
+      //   obj.bets = cur.bets
+      //   obj.creator = cur.creator
+      //   obj.id = cur.id.toString()
+      //   obj.isActive = cur.isActive
+      //   obj.team1 = cur.team1
+      //   obj.team2 = cur.team2
+      //   obj.totalBets = currentBetAllInfo.totalBets.toString()
+      //   obj.winnerTeam = cur.winnerTeam
+      //   obj.winningAmount = cur.winningAmount.toString()
+      //   temp.push(obj)
+      //   const pool = cur.winningAmount.toString()
+      //   let amount = ethers.utils.formatEther(cur.amount.toString())
+      // }
+
+      // setAllBets(temp)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

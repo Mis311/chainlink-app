@@ -1,50 +1,60 @@
-import Link from "next/link";
-import WalletButton from "./WalletButton";
-import { useState, useEffect } from "react";
-import Web3 from "web3";
+import { useContext } from 'react'
+import Link from 'next/link'
+import WalletButton from './WalletButton'
+import { useState, useEffect } from 'react'
+import Web3 from 'web3'
+import { ethers } from 'ethers'
+import { EVM_ABI } from 'src/contract-data/EVMcontract'
+import { MyAppContext } from 'src/pages/_app'
 
 export default function Header() {
-  const [account, setAccount] = useState("");
+  const { account, setAccount, setContract } = useContext(MyAppContext)
 
   useEffect(() => {
     if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
+      const web3 = new Web3(window.ethereum)
       try {
         window.ethereum.enable().then(function () {
           web3.eth.getAccounts().then(function (accounts) {
-            setAccount(accounts[0]);
-          });
-        });
+            setAccount(accounts[0])
+            const contractAddress = '0xC971cBFb42bEb12aC8baDC1AC1d9E52fa79B5B68'
+            const contract = new web3.eth.Contract(EVM_ABI, contractAddress)
+            setContract(contract)
+          })
+        })
       } catch (e) {
         // User has denied account access
       }
     }
-  }, []);
+  }, [])
 
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
-        await window.ethereum.enable();
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
+        await window.ethereum.enable()
+        const web3 = new Web3(window.ethereum)
+        const accounts = await web3.eth.getAccounts()
+        setAccount(accounts[0])
+        const contractAddress = '0xC971cBFb42bEb12aC8baDC1AC1d9E52fa79B5B68'
+        const contract = new web3.eth.Contract(EVM_ABI, contractAddress)
+        setContract(contract)
       } catch (e) {
-        alert("Failed to connect. Please check your MetaMask setup.");
+        alert('Failed to connect. Please check your MetaMask setup.')
       }
     } else {
-      alert("Please install MetaMask!");
+      alert('Please install MetaMask!')
     }
-  };
+  }
 
   const disconnect = () => {
-    setAccount(null);
-  };
+    setAccount(null)
+  }
 
-  <WalletButton account={account} onClick={connectWallet} />;
-  const [open, setOpen] = useState(false);
+  ;<WalletButton account={account} onClick={connectWallet} />
+  const [open, setOpen] = useState(false)
   const toggleOpen = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
   return (
     <nav className="bg-white p-4 sticky top-0 z-50 h-24">
       <header className="flex items-center justify-between">
@@ -107,5 +117,5 @@ export default function Header() {
         </div>
       </header>
     </nav>
-  );
+  )
 }
