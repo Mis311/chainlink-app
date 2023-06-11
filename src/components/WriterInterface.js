@@ -110,7 +110,7 @@ export default function WriterInterface() {
 
     //  get input save it to ips get cid
     //  save cid in sc
-    //  after saving it redirect to fundraising
+    //  after saving it redirect to fundraising -> /all-stories
 
     //More to add
   };

@@ -81,12 +81,12 @@ export default function Header() {
                     Writer Assist Tool
                   </p>
                 </Link>
-                <Link href="/fundraising">
+                <Link href="/all-stories">
                   <p
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem"
                   >
-                    Fundraising
+                    Showcase
                   </p>
                 </Link>
                 <Link href="/gallery">
