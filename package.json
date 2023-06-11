@@ -12,6 +12,7 @@
     "@chainlink/contracts": "^0.6.1",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "@onflow/fcl": "^1.4.0",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "chai": "^4.3.7",

@@ -1,20 +1,20 @@
-import Link from "next/link";
-import WalletButton from "./WalletButton";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
-
+import * as fcl from "@onflow/fcl";
+import WalletButton from "./WalletButton";
+import Link from "next/link";
 
 export default function Header() {
-  const [account, setAccount] = useState("");
+  const [accountMetaMask, setAccountMetaMask] = useState("");
+  const [accountFlow, setAccountFlow] = useState("");
 
-  const [isOpen, setIsOpen] = useState(false);
-  const connectWallet = async () => {
+  const connectWalletMetaMask = async () => {
     if (window.ethereum) {
       try {
         await window.ethereum.enable();
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
+        setAccountMetaMask(accounts[0]);
       } catch (e) {
         alert("Failed to connect. Please check your MetaMask setup.");
       }
@@ -23,31 +23,20 @@ export default function Header() {
     }
   };
 
-  const disconnect = () => {
-    setAccount(null);
-  };
-
-  <WalletButton account={account} onClick={connectWallet} />;
-  const [open, setOpen] = useState(false);
-  const toggleOpen = () => {
-    setOpen(!open);
-  };
-
-  
-  useEffect(() => {
-    if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
-      try {
-        window.ethereum.enable().then(function () {
-          web3.eth.getAccounts().then(function (accounts) {
-            setAccount(accounts[0]);
-          });
-        });
-      } catch (e) {
-        // User has denied account access
+  const connectWalletFlow = async () => {
+    try {
+      const response = await fcl.logIn();
+      if (response.status) {
+        const address = response.addr;
+        setAccountFlow(address);
       }
+    } catch (e) {
+      alert("Failed to connect to Flow. Please check your setup.");
     }
-  }, []);
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="bg-white p-4 sticky top-0 z-50 h-24">
       <header className="flex items-center justify-between">
@@ -108,7 +97,20 @@ export default function Header() {
           <a className="text-blue-500" href="https://discord.gg/ugKSAW3b">
             Discord
           </a>
-          <WalletButton account={account} onClick={connectWallet} />
+   
+          <WalletButton
+        account={accountMetaMask}
+        onClick={connectWalletMetaMask}
+        walletType="MetaMask"
+        className="ml-3"
+        value={"connect Metamask"}
+      />
+      <WalletButton
+        account={accountFlow}
+        onClick={connectWalletFlow}
+        walletType="Flow"
+      />
+        
         </div>
       </header>
     </nav>
