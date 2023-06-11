@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 
 export default function Gallery() {
   const [language, setLanguage] = useState("English");
@@ -577,14 +579,23 @@ export default function Gallery() {
         </header>
 
         <main className="p-5 space-y-5">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            
-            <Image src="dining-table"/>
-            <Image src="dish"/>
-            <Image src="chef"/>
-            <Image src="george"/>
-            <Image src="leaving-room"/>
+        <Carousel showThumbs={false}>
+          <div>
+            <Image src="dining-table.png"/>
           </div>
+          <div>
+            <Image src="dish.png"/>
+          </div>
+          <div>
+            <Image src="chef.png"/>
+          </div>
+          <div>
+            <Image src="george.png"/>
+          </div>
+          <div>
+            <Image src="leaving-room.png"/>
+          </div>
+        </Carousel>
 
           <article className="prose max-w-none whitespace-pre-line">
             {text}
@@ -597,6 +608,10 @@ export default function Gallery() {
   );
 }
 
-function Image() {
-  return <div className="aspect-w-16 aspect-h-9 bg-gray-200"></div>;
+function Image({ src }) {
+  return (
+    <div className="aspect-w-16 aspect-h-9 bg-gray-200">
+      <img src={src} alt="Image" />
+    </div>
+  );
 }
