@@ -3,24 +3,11 @@ import WalletButton from "./WalletButton";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 
+
 export default function Header() {
   const [account, setAccount] = useState("");
 
-  useEffect(() => {
-    if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
-      try {
-        window.ethereum.enable().then(function () {
-          web3.eth.getAccounts().then(function (accounts) {
-            setAccount(accounts[0]);
-          });
-        });
-      } catch (e) {
-        // User has denied account access
-      }
-    }
-  }, []);
-
+  const [isOpen, setIsOpen] = useState(false);
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
@@ -45,6 +32,22 @@ export default function Header() {
   const toggleOpen = () => {
     setOpen(!open);
   };
+
+  
+  useEffect(() => {
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      try {
+        window.ethereum.enable().then(function () {
+          web3.eth.getAccounts().then(function (accounts) {
+            setAccount(accounts[0]);
+          });
+        });
+      } catch (e) {
+        // User has denied account access
+      }
+    }
+  }, []);
   return (
     <nav className="bg-white p-4 sticky top-0 z-50 h-24">
       <header className="flex items-center justify-between">
@@ -53,21 +56,21 @@ export default function Header() {
         </Link>
         <div className="flex space-x-4 cursor-pointer">
           <Link href="/about-us">
-          <p className="text-blue-500" >
-            About Us
-          </p>
+            <p className="text-blue-500">About Us</p>
           </Link>
 
           <a
             id="options-menu"
             aria-haspopup="true"
-            aria-expanded="true"
-            onClick={toggleOpen}
+            aria-expanded="isOpen"
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+            onClick={null}
             className="text-blue-500 cursor-pointer"
           >
             Demo
           </a>
-          {open && (
+          {isOpen && (
             <div className="origin-top-right absolute right-60 top-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
               <div
                 className="py-1"
