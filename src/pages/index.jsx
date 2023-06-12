@@ -14,17 +14,33 @@ function Home() {
     showText: false,
   });
 
-  const { contract } = useContext(MyAppContext);
+  const [theme, setTheme] = useState("");
+
+  const { contract, account } = useContext(MyAppContext);
+
   console.log("+++++Home ~ contract:", contract);
 
   const getTheme = async () => {
     try {
-      const theme = await contract?._methods?.getTheme().call();
+      const theme = await contract?.methods
+      ?.changeTheme()
+      .send({ from: account })
       console.log("______theme:", theme);
+      setTheme(theme);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const changeTheme = async () => {
+    try {
+      await contract?.methods?.changeTheme().send({ from: account });
+      getTheme();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   // useEffect(() => {
   //   const axios = require('axios')
@@ -93,7 +109,7 @@ function Home() {
             <h1
               className={`${styles["inspiration-gradient"]} text-4xl font-bold mb-4`}
             >
-              &quot;Inspiration&quot;
+              &quot;{theme}&quot;
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">

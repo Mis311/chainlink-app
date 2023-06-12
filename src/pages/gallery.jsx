@@ -597,27 +597,27 @@ export default function Gallery() {
           <h1 className="text-4xl mb-2"> The Head of John the Baptist</h1>
           <p>
             {' '}
-            She sits there in a dining room while her favorite play "Salome" is
-            playing. "Tens of millions of people must die," she said.
+            She sits there in a dining room while her favorite play &quot;Salome&quot; is
+            playing. &quot;Tens of millions of people must die,&quot; she said.
           </p>
         </header>
 
         <main className="p-5 space-y-5">
           <Carousel showThumbs={false}>
             <div>
-              <Image src="dining-table.png" />
+              <Image src="/dining-table.png" />
             </div>
             <div>
-              <Image src="dish.png" />
+              <Image src="/dish.png" />
             </div>
             <div>
-              <Image src="chef.png" />
+              <Image src="/chef.png" />
             </div>
             <div>
-              <Image src="george.png" />
+              <Image src="/george.png" />
             </div>
             <div>
-              <Image src="leaving-room.png" />
+              <Image src="/leaving-room.png" />
             </div>
           </Carousel>
 
@@ -646,7 +646,7 @@ export default function Gallery() {
 function Image({ src }) {
   return (
     <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-      <img src={src} alt="Image" />
+      <NextImage src={src} alt="Image" width={1600} height={900}/>
     </div>
   )
 }
