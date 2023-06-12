@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { MyAppContext } from './_app'
+import Link from 'next/link';
 
 const mockData = [
   {
@@ -123,8 +124,9 @@ const AllStories = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {stories.map((work) => (
+          
           <div key={work.id} className="border p-4 rounded shadow">
-            <div
+            <Link href="/gallery"><div
               style={{
                 backgroundColor: getRandomColor(),
                 height: '200px',
@@ -133,7 +135,7 @@ const AllStories = () => {
             ></div>
             <h2 className="text-2xl mb-2">{work.title}</h2>
             <p className="mb-4">{work.description}</p>
-
+            </Link>
             <div className="h-2 mb-4 bg-gray-200">
               <div
                 style={{
@@ -148,16 +150,18 @@ const AllStories = () => {
             <p className="font-bold">Total Fund: {work.totalFund} </p>
           </div>
         ))}
-
+ 
         {creativeWorks.map((work) => (
           <div key={work.id} className="border p-4 rounded shadow">
-            <div
+            <Link href="/gallery"><div
               style={{
                 backgroundColor: getRandomColor(),
                 height: '200px',
                 marginBottom: '15px',
               }}
-            ></div>
+              
+            ></div></Link>
+            
             <h2 className="text-2xl mb-2">{work.title}</h2>
             <p className="mb-4">{work.description}</p>
 
