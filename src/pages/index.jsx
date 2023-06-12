@@ -1,12 +1,14 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import 'tailwindcss/tailwind.css'
 import 'daisyui/dist/full.css'
 import styles from './Home.module.css'
 import Image from 'next/image'
 import DemoDropdown from '@/components/DemoDropDown'
+import { MyAppContext } from './_app'
 
 function Home() {
+  const { contract, account } = useContext(MyAppContext)
   const [state, setState] = useState({
     showFirstImage: true,
     showSecondImage: false,
@@ -14,23 +16,31 @@ function Home() {
   })
 
   // useEffect(() => {
-  //   const axios = require('axios')
-  //   const data = JSON.stringify({
-  //     // callbackURL: 'https://....', // Optional
-  //     prompt: 'technology, 8k, --ar 3:2',
-  //   })
-
-  //   const config = {
-  //     method: 'post',
-  //     maxBodyLength: Infinity,
-  //     url: 'YOUR_API_BASE_URL/imagine',
-  //     headers: {
-  //       Authorization: '535e2bcd-475c-4208-b915-f8a025f7d155',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     data: data,
   //   }
 
+  const changeTheme = async () => {
+    try {
+      const newtheme = await contract?.methods
+        ?.changeTheme()
+        .send({ from: account })
+      console.log('______ChangeTheme:', newtheme)
+
+      alert(
+        'The app theme is changing! To see your new theme please click the changeThem button in about 1 minute',
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getTheme = async () => {
+    try {
+      const theme = await contract?.methods?.currentTheme().call()
+      console.log('______Theme:', theme)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -83,6 +93,7 @@ function Home() {
             >
               &quot;Inspiration&quot;
             </h1>
+
             <Link href="./dashboard">
               <button className="btn btn-primary">
                 Create on Today&apos;s theme
@@ -99,6 +110,9 @@ function Home() {
         >
           <div className="w-4/5">
             <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
+            <button onClick={getTheme}>get Theme From Chainlink</button> <br />
+            <br />
+            <button onClick={changeTheme}>changeThemeNFetch</button>
             <p className="text-xl mb-8 text-gray">
               ArtiFusion is a studio for all writers and creators to get
               inspiration, motivation, and fund-raising opportunity on Web3
@@ -132,12 +146,7 @@ function Home() {
               the tools to tell their stories, we hope to move forward together
               into a future of enhanced creative productivity.
             </p>
-            <Link href="/dashboard">
-    
-                Try Demo
-            
-            </Link>
-            
+            <Link href="/dashboard">Try Demo</Link>
           </div>
         </section>
 

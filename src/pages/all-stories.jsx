@@ -93,7 +93,7 @@ const AllStories = () => {
         obj.id = Number(cur.id)
         obj.content = cur.numberOfWords
         obj.title = cur.title
-        obj.totalFund = Number(cur.totalFund)
+        obj.totalFund = Number(cur.totalFund) / 10 ** 18
         obj.author = cur.writerAddress
         obj.value = '1500'
         data.push(obj)
@@ -145,6 +145,7 @@ const AllStories = () => {
             </div>
             <h2>Raiased 100%</h2>
             <p className="font-bold">{work.value} words</p>
+            <p className="font-bold">Total Fund: {work.totalFund} </p>
           </div>
         ))}
 

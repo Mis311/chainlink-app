@@ -6,9 +6,75 @@ import Web3 from 'web3'
 import { ethers } from 'ethers'
 import { EVM_ABI } from 'src/contract-data/EVMcontract'
 import { MyAppContext } from 'src/pages/_app'
+import * as fcl from '@onflow/fcl'
+// import '../flow/config'
+// import '../flow/config.js'
 
 export default function Header() {
-  const { account, setAccount, setContract } = useContext(MyAppContext)
+  const {
+    account,
+    setAccount,
+    setContract,
+    userFlow,
+    setUserFlow,
+    walletFlow,
+    setWalletFlow,
+  } = useContext(MyAppContext)
+  console.log('___only walletFlow:', walletFlow)
+  console.log('___userFlow:', userFlow)
+
+  useEffect(() => {
+    fcl.currentUser().subscribe(setUserFlow)
+  }, [])
+
+  const connectToFlow = async () => {
+    const user = await fcl.authenticate()
+    setUserFlow(user)
+  }
+
+  const saveStoryToFlow = async () => {
+    const url =
+      'https://bafybeigtky6vfh7scppbf2ws5hcbfvs7afstbjcjz5eltcarwxk5ug4r4y.ipfs.dweb.link/storyData.json'
+    const transactionId = await fcl.mutate({
+      cadence: `
+        import Works from 0xDeployer
+
+        transaction(newURL: String) {
+          prepare(signer: AuthAccount) {
+          }
+          execute {
+            Works.addURL(newURL: newURL)
+          }
+        }
+        `,
+      args: (arg, t) => [arg(url, t.String)],
+      proposer: fcl.authz,
+      payer: fcl.authz,
+      authorizations: [fcl.authz],
+      limit: 999,
+    })
+
+    // const transactionId = await fcl.mutate({
+    //   cadence: `
+    //   import Works from 0xDeployer
+
+    //   transaction(newURL: String) {
+    //     prepare(signer: AuthAccount) {
+    //     }
+    //     execute {
+    //       Works.addURL(newURL: newURL)
+    //     }
+    //   }
+    //   `,
+    //   args: (arg, t) => [arg(url, t.String)],
+    //   proposer: fcl.authz,
+    //   payer: fcl.authz,
+    //   authorizations: [fcl.authz],
+    //   limit: 999,
+    // })
+
+    console.log('Transaction Id', transactionId)
+  }
 
   useEffect(() => {
     if (window.ethereum) {
@@ -113,6 +179,26 @@ export default function Header() {
           <a className="text-blue-500" href="https://discord.gg/ugKSAW3b">
             Discord
           </a>
+          <button onClick={saveStoryToFlow}>saveStoryToFlow</button>
+          <p>{userFlow ? userFlow.addr : ''}</p>
+
+          {!userFlow.loggedIn ? (
+            <button
+              className="border rounded-xl border-[#38E8C6] px-5 text-sm text-[#38E8C6] py-1"
+              onClick={connectToFlow}
+            >
+              Flow Log In
+            </button>
+          ) : (
+            <button
+              className="border rounded-xl border-[#38E8C6]
+            px-5 text-sm text-[#38E8C6] py-1"
+              onClick={fcl.unauthenticate}
+            >
+              Logout
+            </button>
+          )}
+
           <WalletButton account={account} onClick={connectWallet} />
         </div>
       </header>

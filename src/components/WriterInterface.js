@@ -4,6 +4,9 @@ import ImageGeneration from './ImageGeneration'
 import { Web3Storage } from 'web3.storage'
 import { MyAppContext } from 'src/pages/_app'
 import { useRouter } from 'next/router'
+// ADDING FLOW
+import * as fcl from '@onflow/fcl'
+import '../flow/config.js'
 
 const QuillNoSSRWrapper = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
@@ -13,6 +16,10 @@ config()
 
 export default function WriterInterface() {
   const { account, contract } = useContext(MyAppContext)
+  console.log(
+    '🚀 ~ file: WriterInterface.js:19 ~ WriterInterface ~ contract:',
+    contract,
+  )
   const router = useRouter()
   const [data, setData] = useState('')
   const [value, setValue] = useState('')
@@ -44,6 +51,11 @@ export default function WriterInterface() {
     ],
   }
 
+  // useEffect(() => {
+  //   const r = fcl.currentUser().subscribe(setUser)
+  //   console.log('____r :', r)
+  // }, [])
+
   useEffect(() => {
     if (value.length === 0) {
       setStartTime(null)
@@ -66,6 +78,8 @@ export default function WriterInterface() {
       }
     }
   }, [value, startTime])
+
+ 
 
   const saveToIPFS = async (type) => {
     //  onclick display form in the future
@@ -156,6 +170,7 @@ export default function WriterInterface() {
 
   return (
     <div className="py-5">
+      <button onClick={getTheme}>get Theme From Chainlink</button>
       <h2 className="text-2xl font-bold mb-5 ">Compose your masterpiece</h2>
 
       <input
