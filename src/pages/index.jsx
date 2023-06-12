@@ -20,27 +20,29 @@ function Home() {
 
   console.log("+++++Home ~ contract:", contract);
 
-  const getTheme = async () => {
-    try {
-      const theme = await contract?.methods
-        ?.changeTheme()
-        .send({ from: account });
-      console.log("______theme:", theme);
-      setTheme(theme);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const changeTheme = async () => {
     try {
-      await contract?.methods?.changeTheme().send({ from: account });
-      getTheme();
+      const newtheme = await contract?.methods
+        ?.changeTheme()
+        .send({ from: account });
+      console.log("______ChangeTheme:", newtheme);
+
+      alert(
+        "The app theme is changing! To see your new theme please click the changeThem button in about 1 minute"
+      );
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getTheme = async () => {
+    try {
+      const theme = await contract?.methods?.currentTheme().call();
+      console.log("______Theme:", theme);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // useEffect(() => {
   //   const axios = require('axios')
   //   const data = JSON.stringify({
@@ -126,7 +128,9 @@ function Home() {
         >
           <div className="w-4/5">
             <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
-            <button onClick={getTheme}>get Theme From Chainlink</button>
+            <button className="btn bg-blue-500" onClick={getTheme}>Get Theme From Chainlink</button> <br />
+            <br />
+            <button className="btn bg-blue-500" onClick={changeTheme}>change Theme & Fetch</button>
             <p className="text-xl mb-8 text-gray">
               ArtiFusion is a studio for all writers and creators to get
               inspiration, motivation, and fund-raising opportunity on Web3
