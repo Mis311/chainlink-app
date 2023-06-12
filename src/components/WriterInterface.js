@@ -4,7 +4,7 @@ import ImageGeneration from './ImageGeneration'
 import { Web3Storage } from 'web3.storage'
 import { MyAppContext } from 'src/pages/_app'
 import { useRouter } from 'next/router'
-// ADDING FLOW
+import Confirmation from './Confirmation'
 import * as fcl from '@onflow/fcl'
 import '../flow/config.js'
 
@@ -15,12 +15,13 @@ import { config } from 'dotenv'
 config()
 
 export default function WriterInterface() {
-  const { account, contract } = useContext(MyAppContext)
-  console.log(
-    '🚀 ~ file: WriterInterface.js:19 ~ WriterInterface ~ contract:',
-    contract,
+  const { account, contract, userFlow, setUserFlow, walletFlow } = useContext(
+    MyAppContext,
   )
+
   const router = useRouter()
+  const [showConfirmation, setConfirmation] = useState(false)
+  const [flowResponse, setFlowResponse] = useState(false)
   const [data, setData] = useState('')
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
@@ -78,8 +79,6 @@ export default function WriterInterface() {
       }
     }
   }, [value, startTime])
-
- 
 
   const saveToIPFS = async (type) => {
     //  onclick display form in the future
@@ -168,9 +167,42 @@ export default function WriterInterface() {
     setImageValue(newValue)
   }
 
+  const saveStoryToFlow = async () => {
+    const url =
+      'https://bafybeigtky6vfh7scppbf2ws5hcbfvs7afstbjcjz5eltcarwxk5ug4r4y.ipfs.dweb.link/storyData.json'
+    const transactionId = await fcl.mutate({
+      cadence: `
+        import Works from 0xDeployer
+
+        transaction(newURL: String) {
+          prepare(signer: AuthAccount) {
+          }
+          execute {
+            Works.addURL(newURL: newURL)
+          }
+        }
+        `,
+      args: (arg, t) => [arg(url, t.String)],
+      proposer: fcl.authz,
+      payer: fcl.authz,
+      authorizations: [fcl.authz],
+      limit: 999,
+    })
+
+    console.log('Transaction Id', transactionId)
+    const a = '54f7c118e36ad24f4c7d0a9b53dcd0686f931457df77a96a532c1d5ece348ea8'
+    setFlowResponse(`https://flow-view-source.com/testnet/tx/${a}`)
+    setConfirmation(true)
+  }
+
   return (
     <div className="py-5">
-      <button onClick={getTheme}>get Theme From Chainlink</button>
+      <Confirmation
+        showConfirmation={showConfirmation}
+        setConfirmation={setConfirmation}
+        flowResponse={flowResponse}
+      />
+      {/* <button onClick={getTheme}>get Theme From Chainlink</button> */}
       <h2 className="text-2xl font-bold mb-5 ">Compose your masterpiece</h2>
 
       <input
@@ -178,12 +210,14 @@ export default function WriterInterface() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
+        className="text-white"
       />
       <input
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
+        className="text-white"
       />
 
       <QuillNoSSRWrapper
@@ -228,6 +262,12 @@ export default function WriterInterface() {
             className="bg-blue-500 text-white px-4 py-2 rounded w-40"
           >
             Save & Submit
+          </button>
+          <button
+            onClick={saveStoryToFlow}
+            className="bg-blue-500 text-white px-4 py-2 rounded w-40"
+          >
+            Save To Flow
           </button>
         </div>
       </div>
