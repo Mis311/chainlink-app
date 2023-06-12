@@ -39,6 +39,7 @@ function Home() {
     try {
       const theme = await contract?.methods?.currentTheme().call();
       console.log("______Theme:", theme);
+      setTheme(theme);
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +61,12 @@ function Home() {
   //     },
   //     data: data,
   //   }
+
+  useEffect(() => {
+    if (contract) {
+      getTheme();
+    }
+  }, [contract]);
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -110,7 +117,7 @@ function Home() {
             <h1
               className={`${styles["inspiration-gradient"]} text-4xl font-bold mb-4`}
             >
-              &quot;Inspiration&quot;
+              &quot;{theme}&quot;
             </h1>
             <Link href="./dashboard">
               <button className="btn btn-primary">
@@ -128,9 +135,14 @@ function Home() {
         >
           <div className="w-4/5">
             <h2 className="text-3xl font-bold mb-4 text-black">Our Story</h2>
-            <button className="btn bg-blue-500" onClick={getTheme}>Get Theme From Chainlink</button> <br />
+            <button className="btn bg-blue-500" onClick={getTheme}>
+              Get Theme From Chainlink
+            </button>{" "}
             <br />
-            <button className="btn bg-blue-500" onClick={changeTheme}>change Theme & Fetch</button>
+            <br />
+            <button className="btn bg-blue-500" onClick={changeTheme}>
+              change Theme & Fetch
+            </button>
             <p className="text-xl mb-8 text-gray">
               ArtiFusion is a studio for all writers and creators to get
               inspiration, motivation, and fund-raising opportunity on Web3
