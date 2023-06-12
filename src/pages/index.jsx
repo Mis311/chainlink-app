@@ -23,8 +23,8 @@ function Home() {
   const getTheme = async () => {
     try {
       const theme = await contract?.methods
-      ?.changeTheme()
-      .send({ from: account })
+        ?.changeTheme()
+        .send({ from: account });
       console.log("______theme:", theme);
       setTheme(theme);
     } catch (error) {
@@ -40,7 +40,6 @@ function Home() {
       console.log(error);
     }
   };
-
 
   // useEffect(() => {
   //   const axios = require('axios')
@@ -161,7 +160,11 @@ function Home() {
               the tools to tell their stories, we hope to move forward together
               into a future of enhanced creative productivity.
             </p>
-            <Link href="/dashboard">Try Demo</Link>
+            <Link href="/dashboard">
+              <button className="btn bg-primary border-transparent">
+                Try Demo
+              </button>
+            </Link>
           </div>
         </section>
 
