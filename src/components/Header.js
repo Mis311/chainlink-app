@@ -7,8 +7,7 @@ import { ethers } from 'ethers'
 import { EVM_ABI } from 'src/contract-data/EVMcontract'
 import { MyAppContext } from 'src/pages/_app'
 import * as fcl from '@onflow/fcl'
-// import '../flow/config'
-// import '../flow/config.js'
+import '../flow/config.js'
 
 export default function Header() {
   const {
@@ -53,27 +52,22 @@ export default function Header() {
       authorizations: [fcl.authz],
       limit: 999,
     })
-
-    // const transactionId = await fcl.mutate({
-    //   cadence: `
-    //   import Works from 0xDeployer
-
-    //   transaction(newURL: String) {
-    //     prepare(signer: AuthAccount) {
-    //     }
-    //     execute {
-    //       Works.addURL(newURL: newURL)
-    //     }
-    //   }
-    //   `,
-    //   args: (arg, t) => [arg(url, t.String)],
-    //   proposer: fcl.authz,
-    //   payer: fcl.authz,
-    //   authorizations: [fcl.authz],
-    //   limit: 999,
-    // })
-
     console.log('Transaction Id', transactionId)
+  }
+
+  const getStoriesFromFlow = async () => {
+    const result = await fcl.query({
+      cadence: `
+        import Works from 0xDeployer
+
+        pub fun main(): [String] {
+          return Works.works
+        }
+      `,
+      args: (arg, t) => [],
+    })
+    console.log(result)
+    alert(result)
   }
 
   useEffect(() => {
@@ -179,12 +173,18 @@ export default function Header() {
           <a className="text-blue-500" href="https://discord.gg/ugKSAW3b">
             Discord
           </a>
-          <button onClick={saveStoryToFlow}>saveStoryToFlow</button>
-          <p>{userFlow ? userFlow.addr : ''}</p>
+          {/* <button onClick={saveStoryToFlow} className="text-black">
+            saveStoryToFlow
+          </button>
+
+          <button onClick={getStoriesFromFlow} className="text-black">
+            getStoriesFromFlow
+          </button> */}
+          <p className="text-black">{userFlow ? userFlow.addr : ''}</p>
 
           {!userFlow.loggedIn ? (
             <button
-              className="border rounded-xl border-[#38E8C6] px-5 text-sm text-[#38E8C6] py-1"
+              className="border rounded-xl border-[#38E8C6] px-5 text-lg text-[#38E8C6] py-1 bg-black"
               onClick={connectToFlow}
             >
               Flow Log In
@@ -192,7 +192,7 @@ export default function Header() {
           ) : (
             <button
               className="border rounded-xl border-[#38E8C6]
-            px-5 text-sm text-[#38E8C6] py-1"
+            px-5 text-sm text-[#38E8C6] py-1 bg-black"
               onClick={fcl.unauthenticate}
             >
               Logout
